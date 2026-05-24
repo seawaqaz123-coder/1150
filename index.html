@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I Fries & Grill — Business Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2ee;
+    --cream: #ede9e1;
+    --fire: #e8511a;
+    --gold: #d4a843;
+    --muted: #b8b0a4;
+    --border: rgba(180,170,160,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    background: #0a0a0a !important;
+  }
+
+  body {
+    background: #0a0a0a !important;
+    color: #f5f2ee;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ── PROGRESS BAR ── */
+  #progress {
+    position: fixed; top: 0; left: 0; height: 2px;
+    background: var(--fire); width: 0%;
+    transition: width 0.1s; z-index: 100;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,10,0.85);
+  }
+
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    letter-spacing: 0.02em;
+  }
+  .nav-logo span { color: var(--fire); }
+
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    color: #b8b0a4; text-decoration: none;
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--white); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 120px 48px 80px;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--fire); margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(52px, 9vw, 110px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    opacity: 0; animation: fadeUp 0.9s 0.4s forwards;
+  }
+  .hero-title em { color: var(--fire); font-style: italic; }
+
+  .hero-sub {
+    font-size: 14px; color: #c8c0b6;
+    max-width: 440px; margin: 0 auto 52px;
+    opacity: 0; animation: fadeUp 0.9s 0.6s forwards;
+  }
+
+  .hero-tags {
+    display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+    opacity: 0; animation: fadeUp 0.9s 0.8s forwards;
+  }
+  .tag {
+    border: 1px solid var(--border);
+    padding: 8px 20px; border-radius: 100px;
+    font-size: 12px; letter-spacing: 0.08em;
+    color: #c8c0b6; background: rgba(255,255,255,0.04);
+    transition: all 0.3s;
+  }
+  .tag:hover { border-color: var(--fire); color: var(--fire); background: rgba(232,81,26,0.05); }
+
+  .scroll-hint {
+    position: absolute; bottom: 40px;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    color: #b8b0a4; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    opacity: 0; animation: fadeUp 1s 1.2s forwards;
+  }
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--fire), transparent);
+    animation: pulse 2s infinite;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 100px 48px;
+    max-width: 1100px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+
+  .section-label {
+    font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--fire); margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.08; letter-spacing: -0.01em;
+    margin-bottom: 48px;
+    color: #f5f2ee;
+  }
+
+  .divider {
+    width: 100%; height: 1px;
+    background: var(--border); margin: 0;
+  }
+
+  /* ── GP SECTION ── */
+  .gp-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  }
+
+  .gp-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    padding: 36px; position: relative; overflow: hidden;
+    transition: background 0.4s;
+  }
+  .gp-card:hover { background: rgba(255,255,255,0.04); }
+
+  .gp-card.highlight {
+    background: rgba(232,81,26,0.06);
+    border-color: rgba(232,81,26,0.3);
+  }
+
+  .gp-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 56px; line-height: 1;
+    color: var(--fire); margin-bottom: 10px;
+  }
+
+  .gp-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #c8c0b6; }
+  .gp-desc { font-size: 14px; color: var(--white); margin-top: 8px; font-weight: 400; }
+
+  .formula-box {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 4px;
+    padding: 28px 36px;
+    display: flex; align-items: center; gap: 24px;
+    margin-top: 24px;
+  }
+  .formula-icon { font-size: 32px; }
+  .formula-text { font-size: 13px; color: #c8c0b6; line-height: 1.9; }
+  .formula-text strong { color: var(--gold); font-size: 20px; display: block; margin-top: 4px; }
+
+  /* ── MENU TABLE ── */
+  .menu-grid { display: flex; flex-direction: column; gap: 2px; }
+
+  .menu-category {
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .menu-cat-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 28px;
+    background: rgba(255,255,255,0.02);
+    cursor: pointer; user-select: none;
+    transition: background 0.3s;
+  }
+  .menu-cat-header:hover { background: rgba(255,255,255,0.05); }
+
+  .cat-name {
+    font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+    font-weight: 500;
+  }
+  .cat-toggle {
+    width: 24px; height: 24px;
+    border: 1px solid var(--border); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: var(--muted);
+    transition: all 0.3s;
+  }
+  .menu-category.open .cat-toggle { transform: rotate(45deg); border-color: var(--fire); color: var(--fire); }
+
+  .menu-items {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .menu-category.open .menu-items { max-height: 600px; }
+
+  .menu-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 28px;
+    border-top: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .menu-row:hover { background: rgba(255,255,255,0.02); }
+
+  .menu-name { font-size: 14px; color: var(--white); }
+  .menu-note { font-size: 12px; color: #b8b0a4; margin-top: 3px; }
+
+  .menu-price {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px; color: var(--white); white-space: nowrap;
+  }
+  .menu-price span { font-size: 11px; font-family: 'DM Sans', sans-serif; color: var(--muted); }
+
+  .starred .menu-name::before { content: '⭐ '; }
+  .starred .menu-price { color: var(--gold); }
+
+  /* ── SPICE ── */
+  .spice-grid {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px;
+  }
+
+  .spice-card {
+    border: 1px solid var(--border);
+    padding: 20px 12px; text-align: center;
+    border-radius: 4px; cursor: pointer;
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .spice-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--fire); opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .spice-card:hover::before { opacity: var(--intensity); }
+  .spice-card > * { position: relative; z-index: 1; }
+
+  .spice-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px; margin-bottom: 6px;
+  }
+  .spice-desc { font-size: 11px; color: #c8c0b6; letter-spacing: 0.06em; }
+  .spice-card.active { border-color: var(--fire); background: rgba(232,81,26,0.1); }
+
+  /* ── PROMO ── */
+  .promo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+
+  .promo-card {
+    border: 1px solid var(--border); padding: 36px 28px;
+    position: relative; overflow: hidden;
+    transition: all 0.4s;
+  }
+  .promo-card::after {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--fire);
+    transition: height 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .promo-card:hover::after { height: 100%; }
+  .promo-card:hover { background: rgba(255,255,255,0.02); }
+
+  .promo-num {
+    font-family: 'DM Serif Display', serif; font-style: italic;
+    font-size: 60px; color: rgba(255,255,255,0.06);
+    line-height: 1; margin-bottom: 16px;
+  }
+  .promo-title { font-size: 14px; font-weight: 500; margin-bottom: 10px; }
+  .promo-body { font-size: 14px; color: #c8c0b6; line-height: 1.8; }
+
+  /* ── SUMMARY BOX ── */
+  .summary-wrap {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    padding: 52px;
+  }
+
+  .summary-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 36px; }
+
+  .sum-col-title {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--fire); margin-bottom: 16px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--border);
+  }
+  .sum-item { font-size: 13px; color: #c8c0b6; padding: 5px 0; display: flex; justify-content: space-between; gap: 12px; }
+  .sum-item strong { color: var(--white); font-weight: 500; }
+
+  .kpi-row {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    margin-top: 36px;
+  }
+
+  .kpi {
+    background: rgba(232,81,26,0.06);
+    border: 1px solid rgba(232,81,26,0.2);
+    padding: 28px; text-align: center;
+  }
+  .kpi-val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 40px; color: var(--fire); line-height: 1; margin-bottom: 6px;
+  }
+  .kpi-lab { font-size: 12px; color: #c8c0b6; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center; padding: 60px 48px;
+    border-top: 1px solid var(--border);
+    color: #b8b0a4; font-size: 13px; letter-spacing: 0.08em;
+  }
+  footer strong { color: var(--white); font-weight: 400; font-family: 'DM Serif Display', serif; font-size: 16px; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; } 50% { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.7s, transform 0.7s;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 64px 24px; }
+    .gp-grid, .summary-cols, .spice-grid { grid-template-columns: 1fr 1fr; }
+    .promo-grid, .kpi-row { grid-template-columns: 1fr; }
+    .summary-wrap { padding: 28px; }
+    .hero { padding: 100px 24px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav>
+  <div class="nav-logo">I <span>Fries</span> & Grill</div>
+  <div class="nav-links">
+    <a href="#gp">GP & ราคา</a>
+    <a href="#menu">เมนู</a>
+    <a href="#spice">ระดับเผ็ด</a>
+    <a href="#promo">โปรโมชั่น</a>
+    <a href="#summary">สรุป</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">Business Plan — LINE MAN Delivery</p>
+  <h1 class="hero-title">I <em>Fries</em><br>&amp; Grill</h1>
+  <p class="hero-sub">หมาล่าย่าง · ของทอด · Street Food สไตล์อเมริกัน<br>สรุปแผนธุรกิจฉบับใช้งานจริง</p>
+  <div class="hero-tags">
+    <div class="tag">🍢 หมาล่าย่างสด</div>
+    <div class="tag">🍟 ของทอดกรอบ</div>
+    <div class="tag">🔥 Texas BBQ Concept</div>
+    <div class="tag">📱 LINE MAN Optimized</div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>เลื่อนดู</span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- GP SECTION -->
+<section id="gp">
+  <p class="section-label reveal">01 — ค่า GP &amp; โครงสร้างราคา</p>
+  <h2 class="section-title reveal">ทำไมต้องตั้งราคา<br>ในแอปสูงกว่า</h2>
+
+  <div class="gp-grid reveal">
+    <div class="gp-card">
+      <div class="gp-number">30%</div>
+      <div class="gp-label">GP ที่ LINE MAN หัก</div>
+      <div class="gp-desc">ค่าธรรมเนียมรายการต่อยอดขาย</div>
+    </div>
+    <div class="gp-card">
+      <div class="gp-number">7%</div>
+      <div class="gp-label">VAT บน GP</div>
+      <div class="gp-desc">ภาษีมูลค่าเพิ่มที่คำนวณบน GP</div>
+    </div>
+    <div class="gp-card highlight">
+      <div class="gp-number">32.1%</div>
+      <div class="gp-label">รวมทั้งหมด</div>
+      <div class="gp-desc">ต้นทุนจริงต่อ 1 ออเดอร์บน LINE MAN</div>
+    </div>
+    <div class="gp-card">
+      <div class="gp-number">40-50%</div>
+      <div class="gp-label">ควรตั้งราคาสูงกว่าหน้าร้านเท่าไร</div>
+      <div class="gp-desc">เพื่อรักษากำไรให้ใกล้เคียงหน้าร้าน</div>
+    </div>
+  </div>
+
+  <div class="formula-box reveal">
+    <div class="formula-icon">🧮</div>
+    <div class="formula-text">
+      สูตรตั้งราคาในแอป
+      <strong>ราคาในแอป = ราคาหน้าร้าน × 1.5</strong>
+      ❌ ห้ามตั้งราคาเท่าหน้าร้าน · ✅ ตั้งสูงกว่า 40–50% เสมอ
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MENU SECTION -->
+<section id="menu">
+  <p class="section-label reveal">02 — โครงสร้างเมนู</p>
+  <h2 class="section-title reveal">เมนูที่เหมาะสม<br>สำหรับร้านใหม่</h2>
+
+  <div class="menu-grid">
+
+    <!-- SET MALA -->
+    <div class="menu-category open reveal">
+      <div class="menu-cat-header" onclick="toggleCat(this)">
+        <span class="cat-name">🍢 เซ็ตหมาล่า — ตัวทำเงินหลัก</span>
+        <div class="cat-toggle">+</div>
+      </div>
+      <div class="menu-items">
+        <div class="menu-row">
+          <div>
+            <div class="menu-name">เซ็ตทดลองกิน</div>
+            <div class="menu-note">เลือกได้ 6 ไม้</div>
+          </div>
+          <div class="menu-price">99 <span>บาท</span></div>
+        </div>
+        <div class="menu-row starred">
+          <div>
+            <div class="menu-name">เซ็ตยอดนิยม</div>
+            <div class="menu-note">เลือกได้ 10 ไม้ · ปักบนสุด</div>
+          </div>
+          <div class="menu-price">149 <span>บาท</span></div>
+        </div>
+        <div class="menu-row">
+          <div>
+            <div class="menu-name">เซ็ตอิ่มคุ้ม</div>
+            <div class="menu-note">เลือกได้ 15 ไม้</div>
+          </div>
+          <div class="menu-price">219 <span>บาท</span></div>
+        </div>
+        <div class="menu-row">
+          <div>
+            <div class="menu-name">เซ็ตปาร์ตี้</div>
+            <div class="menu-note">เลือกได้ 20 ไม้</div>
+          </div>
+          <div class="menu-price">289 <span>บาท</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SINGLE -->
+    <div class="menu-category reveal">
+      <div class="menu-cat-header" onclick="toggleCat(this)">
+        <span class="cat-name">🥩 เมนูเดี่ยว (ราคาต่อไม้)</span>
+        <div class="cat-toggle">+</div>
+      </div>
+      <div class="menu-items">
+        <div class="menu-row">
+          <div>
+            <div class="menu-name">ไส้กรอกแดง / ปูอัด / ลูกชิ้นปลา</div>
+          </div>
+          <div class="menu-price">15 <span>บาท</span></div>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">เต้าหู้ปลา</div></div>
+          <div class="menu-price">18 <span>บาท</span></div>
+        </div>
+        <div class="menu-row starred">
+          <div>
+            <div class="menu-name">หมูสามชั้น</div>
+          </div>
+          <div class="menu-price">22 <span>บาท</span></div>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">ไก่หมัก</div></div>
+          <div class="menu-price">22 <span>บาท</span></div>
+        </div>
+        <div class="menu-row starred">
+          <div><div class="menu-name">เบคอนพันเห็ด</div></div>
+          <div class="menu-price">29 <span>บาท</span></div>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">เบคอนพันไส้กรอก / เบคอนพันปูอัด</div></div>
+          <div class="menu-price">29 <span>บาท</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMBO -->
+    <div class="menu-category open reveal">
+      <div class="menu-cat-header" onclick="toggleCat(this)">
+        <span class="cat-name">💥 คอมโบเพิ่มยอดขาย</span>
+        <div class="cat-toggle">+</div>
+      </div>
+      <div class="menu-items">
+        <div class="menu-row">
+          <div>
+            <div class="menu-name">Combo A</div>
+            <div class="menu-note">หมาล่า 6 ไม้ + เฟรนช์ฟรายส์ S</div>
+          </div>
+          <div class="menu-price">179 <span>บาท</span></div>
+        </div>
+        <div class="menu-row starred">
+          <div>
+            <div class="menu-name">Combo B — ดันหนัก</div>
+            <div class="menu-note">หมาล่า 10 ไม้ + เฟรนช์ฟรายส์ S + เป๊ปซี่ 1 ขวด</div>
+          </div>
+          <div class="menu-price">249 <span>บาท</span></div>
+        </div>
+        <div class="menu-row">
+          <div>
+            <div class="menu-name">Combo C</div>
+            <div class="menu-note">หมาล่า 15 ไม้ + เฟรนช์ฟรายส์ L + เป๊ปซี่ 2 ขวด</div>
+          </div>
+          <div class="menu-price">349 <span>บาท</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FRIED -->
+    <div class="menu-category reveal">
+      <div class="menu-cat-header" onclick="toggleCat(this)">
+        <span class="cat-name">🍟 ของทอด</span>
+        <div class="cat-toggle">+</div>
+      </div>
+      <div class="menu-items">
+        <div class="menu-row">
+          <div><div class="menu-name">เฟรนช์ฟรายส์ S</div></div>
+          <div class="menu-price">49 <span>บาท</span></div>
+        </div>
+        <div class="menu-row starred">
+          <div><div class="menu-name">เฟรนช์ฟรายส์ L (ชีส)</div></div>
+          <div class="menu-price">79 <span>บาท</span></div>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">นักเก็ต 6 ชิ้น</div></div>
+          <div class="menu-price">69 <span>บาท</span></div>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">นักเก็ต 10 ชิ้น</div></div>
+          <div class="menu-price">99 <span>บาท</span></div>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">ชีสบอล</div></div>
+          <div class="menu-price">69 <span>บาท</span></div>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">ไก่ป๊อป</div></div>
+          <div class="menu-price">79 <span>บาท</span></div>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">หอมทอด</div></div>
+          <div class="menu-price">69 <span>บาท</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SPICE SECTION -->
+<section id="spice">
+  <p class="section-label reveal">03 — ระดับความเผ็ด &amp; ชา</p>
+  <h2 class="section-title reveal">ระบบระดับ<br>ให้ลูกค้าเลือก</h2>
+
+  <div style="margin-bottom: 36px;">
+    <p class="sum-col-title" style="margin-bottom: 16px;">🌶️ ระดับความเผ็ด (ตัวเลข 0–5)</p>
+    <div class="spice-grid reveal">
+      <div class="spice-card" style="--intensity:0.04" onclick="pickSpice(this)">
+        <div class="spice-num">0</div>
+        <div class="spice-desc">ไม่ใส่ผง</div>
+      </div>
+      <div class="spice-card" style="--intensity:0.08" onclick="pickSpice(this)">
+        <div class="spice-num">1</div>
+        <div class="spice-desc">เบามาก</div>
+      </div>
+      <div class="spice-card" style="--intensity:0.12" onclick="pickSpice(this)">
+        <div class="spice-num">2</div>
+        <div class="spice-desc">อ่อน</div>
+      </div>
+      <div class="spice-card active" style="--intensity:0.16" onclick="pickSpice(this)">
+        <div class="spice-num">3</div>
+        <div class="spice-desc">มาตรฐาน ⭐</div>
+      </div>
+      <div class="spice-card" style="--intensity:0.22" onclick="pickSpice(this)">
+        <div class="spice-num">4</div>
+        <div class="spice-desc">เผ็ดมาก</div>
+      </div>
+      <div class="spice-card" style="--intensity:0.30" onclick="pickSpice(this)">
+        <div class="spice-num">5</div>
+        <div class="spice-desc">สายโหด 🔥</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <p class="sum-col-title" style="margin-bottom: 16px;">💧 ระดับความชา</p>
+    <div class="spice-grid reveal" style="grid-template-columns: repeat(4,1fr)">
+      <div class="spice-card" style="--intensity:0.05" onclick="pickSpice(this)">
+        <div class="spice-num" style="font-size:24px">—</div>
+        <div class="spice-desc">ไม่ชา</div>
+      </div>
+      <div class="spice-card" style="--intensity:0.08" onclick="pickSpice(this)">
+        <div class="spice-num" style="font-size:24px">·</div>
+        <div class="spice-desc">ชาน้อย</div>
+      </div>
+      <div class="spice-card active" style="--intensity:0.12" onclick="pickSpice(this)">
+        <div class="spice-num" style="font-size:24px">◎</div>
+        <div class="spice-desc">ชาปกติ ⭐</div>
+      </div>
+      <div class="spice-card" style="--intensity:0.18" onclick="pickSpice(this)">
+        <div class="spice-num" style="font-size:24px">●</div>
+        <div class="spice-desc">ชามาก</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROMO SECTION -->
+<section id="promo">
+  <p class="section-label reveal">04 — โปรโมชั่นเปิดร้าน</p>
+  <h2 class="section-title reveal">7 วันแรก<br>เลือก 1 แบบ</h2>
+
+  <div class="promo-grid">
+    <div class="promo-card reveal">
+      <div class="promo-num">01</div>
+      <div class="promo-title">ส่วนลดทันที</div>
+      <div class="promo-body">ลด <strong style="color:var(--white);font-size:18px">10%</strong> ทุกออเดอร์ในช่วงเปิดร้าน ง่ายที่สุด ดึงดูดลูกค้าใหม่ได้เร็ว</div>
+    </div>
+    <div class="promo-card reveal">
+      <div class="promo-num">02</div>
+      <div class="promo-title">ซื้อครบแถม</div>
+      <div class="promo-body">ซื้อครบ <strong style="color:var(--white)">199 บาท</strong><br>แถมปูอัด <strong style="color:var(--white)">2 ไม้</strong><br>กระตุ้นให้ยอดบิลสูงขึ้น</div>
+    </div>
+    <div class="promo-card reveal">
+      <div class="promo-num">03</div>
+      <div class="promo-title">Combo Deal</div>
+      <div class="promo-body">ซื้อ <strong style="color:var(--white)">Combo B</strong><br>แถมน้ำเปล่า <strong style="color:var(--white)">1 ขวด</strong><br>ดันเมนูสำคัญให้ขายดี</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SUMMARY -->
+<section id="summary">
+  <p class="section-label reveal">05 — สรุปแผนร้าน</p>
+  <h2 class="section-title reveal">โครงสร้างที่เหมาะ<br>สำหรับเริ่มต้น</h2>
+
+  <div class="summary-wrap reveal">
+    <div class="summary-cols">
+      <div>
+        <div class="sum-col-title">เซ็ตหมาล่า</div>
+        <div class="sum-item"><span>6 ไม้</span><strong>99฿</strong></div>
+        <div class="sum-item"><span>10 ไม้ ⭐</span><strong>149฿</strong></div>
+        <div class="sum-item"><span>15 ไม้</span><strong>219฿</strong></div>
+        <div class="sum-item"><span>20 ไม้</span><strong>289฿</strong></div>
+      </div>
+      <div>
+        <div class="sum-col-title">คอมโบ</div>
+        <div class="sum-item"><span>Combo A</span><strong>179฿</strong></div>
+        <div class="sum-item"><span>Combo B ⭐</span><strong>249฿</strong></div>
+        <div class="sum-item"><span>Combo C</span><strong>349฿</strong></div>
+      </div>
+      <div>
+        <div class="sum-col-title">ของทอด</div>
+        <div class="sum-item"><span>เฟรนช์ฟรายส์ S</span><strong>49฿</strong></div>
+        <div class="sum-item"><span>เฟรนช์ฟรายส์ L</span><strong>79฿</strong></div>
+        <div class="sum-item"><span>นักเก็ต / ชีสบอล</span><strong>69฿</strong></div>
+        <div class="sum-item"><span>ไก่ป๊อป</span><strong>79฿</strong></div>
+      </div>
+      <div>
+        <div class="sum-col-title">เครื่องดื่ม</div>
+        <div class="sum-item"><span>น้ำเปล่า</span><strong>—</strong></div>
+        <div class="sum-item"><span>เป๊ปซี่</span><strong>—</strong></div>
+      </div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="kpi-val">150–250</div>
+        <div class="kpi-lab">บาท / ออเดอร์เฉลี่ย</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">×1.5</div>
+        <div class="kpi-lab">ตัวคูณราคาในแอป</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">3</div>
+        <div class="kpi-lab">เมนูดาวที่ต้องดันหนัก</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>I Fries &amp; Grill</strong>
+  <br><br>
+  <span>หมาล่าย่าง · ของทอด · Street Food · LINE MAN Delivery</span>
+  <br>
+  <span style="margin-top:8px;display:block;font-size:10px;opacity:0.4">Business Plan — ฉบับใช้งานจริง</span>
+</footer>
+
+<script>
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const el = document.getElementById('progress');
+    const h = document.documentElement;
+    const pct = (h.scrollTop || document.body.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    el.style.width = pct + '%';
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => obs.observe(r));
+
+  // Accordion toggle
+  function toggleCat(header) {
+    const cat = header.closest('.menu-category');
+    cat.classList.toggle('open');
+  }
+
+  // Spice pick
+  function pickSpice(card) {
+    const siblings = card.parentElement.querySelectorAll('.spice-card');
+    siblings.forEach(s => s.classList.remove('active'));
+    card.classList.add('active');
+  }
+</script>
+</body>
+</html>
